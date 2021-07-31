@@ -9,6 +9,7 @@ class ClassDiary {
         this.lessonIdCount = 0;
 
         this.marksList = [];
+        this.lessonAverageMarkList = [];
 
     }
     intro() {
@@ -47,48 +48,72 @@ class ClassDiary {
             }
         }
     }
-    showStudentsMarks(studentsName) {
-        console.log(`Jono pazymiai`);
-        console.log(`==========================`);
+    showStudentsMarks(studentsName, print = true) {
+        if (print) {
+
+            console.log(`Jono pazymiai`);
+            console.log(`==========================`);
+        }
 
         let studentsID = 0;
-
         for (let i = 0; i < this.studentsList.length; i++) {
 
             if (studentsName === this.studentsList[i]) {
                 studentsID = i + 1;
+                break;
             }
         }
 
+        let tempStudentsAverageMarkList = [];
+
         for (let i = 0; i < this.lessonList.length; i++) {
             const lesson = this.lessonList[i];
-            let oneLessonMarks = '';
+
+            let markCount = 0;
+            let sumOfLessonMarks = 0;
+            let oneLessonMarks = [];
+
             let id = i + 1;
+
             for (const mark of this.marksList) {
 
                 if (mark.studentId === studentsID &&
                     mark.lessonID === id) {
-
-                    oneLessonMarks += `${mark.mark}, `;
+                    sumOfLessonMarks += mark.mark;
+                    markCount++;
+                    oneLessonMarks.push(mark.mark);
                 }
             }
-            console.log(`${lesson}: ${oneLessonMarks}`)
+            const average = sumOfLessonMarks / markCount;
+
+            tempStudentsAverageMarkList.push(average);
+
+            this.lessonAverageMarkList = tempStudentsAverageMarkList;
+
+            console.log(this.lessonAverageMarkList);
+            if (print) {
+
+                console.log(`${lesson}: ${oneLessonMarks.join(`, `)}`)
+            }
 
         }
+        if (print) {
 
-        console.log(`==========================`);
+            console.log(`========================== `);
+        }
+    }
+    showStudentsAverageMark(name) {
+
+        console.log('Jono pazymiu vidurkis');
+        console.log('=====================');
+
+        this.showStudentsMarks(name, false);
+        for (let i = 0; i < this.lessonList.length; i++) {
+            const lesson = this.lessonList[i];
+            console.log(`${lesson}: ${this.lessonAverageMarkList[i]}`);
+        }
+        console.log('=====================');
     }
 }
 
 module.exports = ClassDiary;
-
-
-
-//kuriam objectui pamokos mokiniu objecta su pazymiais
-// for (const lesson of this.lessonList) {
-//     if (lesson.lessonName === addTolessonName) {
-//         lesson.student = [{ name: studentsName, marks: [{ mark, date }] }];
-//         console.log(lesson.student);
-//         break;
-//     }
-// }

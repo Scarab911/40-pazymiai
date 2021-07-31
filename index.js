@@ -24,4 +24,5 @@ dienynas.addMark('Jonas', 'Fizika', 5, '2021-05.08');
 
 dienynas.showStudentsMarks('Jonas');
 
+dienynas.showStudentsAverageMark('Jonas');
 // console.log(dienynas);
