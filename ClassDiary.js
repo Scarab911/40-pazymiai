@@ -46,10 +46,37 @@ class ClassDiary {
                 // this.marksList[i].studentId = i + 1;
             }
         }
+    }
+    showStudentsMarks(studentsName) {
+        console.log(`Jono pazymiai`);
+        console.log(`==========================`);
 
+        let studentsID = 0;
 
-        console.log(this.marksList);
+        for (let i = 0; i < this.studentsList.length; i++) {
 
+            if (studentsName === this.studentsList[i]) {
+                studentsID = i + 1;
+            }
+        }
+
+        for (let i = 0; i < this.lessonList.length; i++) {
+            const lesson = this.lessonList[i];
+            let oneLessonMarks = '';
+            let id = i + 1;
+            for (const mark of this.marksList) {
+
+                if (mark.studentId === studentsID &&
+                    mark.lessonID === id) {
+
+                    oneLessonMarks += `${mark.mark}, `;
+                }
+            }
+            console.log(`${lesson}: ${oneLessonMarks}`)
+
+        }
+
+        console.log(`==========================`);
     }
 }
 
