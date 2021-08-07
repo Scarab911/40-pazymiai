@@ -11,6 +11,8 @@ class ClassDiary {
         this.marksList = [];
         this.lessonAverageMarkList = [];
 
+        this.showedInfo = [];
+
     }
     intro() {
         console.log(`Penktoku klases "${this.class}" dienynas!`);
@@ -49,13 +51,19 @@ class ClassDiary {
         }
     }
     showStudentsMarks(studentsName, print = true) {
+        const equalString = '=';
+
+        const space = ' '; //SPACE
+        const letterNumber = this.findLongest(this.lessonList);
+
         if (print) {
 
             console.log(`Jono pazymiai`);
-            console.log(`==========================`);
+            console.log(`${equalString.repeat(letterNumber)}`);
         }
 
         let studentsID = 0;
+
         for (let i = 0; i < this.studentsList.length; i++) {
 
             if (studentsName === this.studentsList[i]) {
@@ -63,6 +71,7 @@ class ClassDiary {
                 break;
             }
         }
+
 
         let tempStudentsAverageMarkList = [];
 
@@ -89,17 +98,22 @@ class ClassDiary {
             tempStudentsAverageMarkList.push(average);
 
             this.lessonAverageMarkList = tempStudentsAverageMarkList;
+            const letterDiff = letterNumber - lesson.length;
 
-            console.log(this.lessonAverageMarkList);
+            this.showedInfo.push(`${lesson}${space.repeat(letterDiff)}: ${oneLessonMarks.join(`, `)}`)//sukuriam array is tekstu
+
             if (print) {
 
-                console.log(`${lesson}: ${oneLessonMarks.join(`, `)}`)
+                console.log(`${lesson}${space.repeat(letterDiff)}: ${oneLessonMarks.join(`, `)}`)
             }
 
         }
+        //apsiskaiciuojam ilgiausia texta ir pakarotjam duota string tiek kartu
+        const textLength = this.findLongest(this.showedInfo)
+
         if (print) {
 
-            console.log(`========================== `);
+            console.log(`${equalString.repeat(textLength)}`);
         }
     }
     showStudentsAverageMark(name) {
@@ -107,12 +121,33 @@ class ClassDiary {
         console.log('Jono pazymiu vidurkis');
         console.log('=====================');
 
-        this.showStudentsMarks(name, false);
+        this.showStudentsMarks(name, false); //pagal iskviesta mokiny perskaiciuoja ir perraso vidurki
+
+        const space = ' '; //SPACE
+        const letterNumber = this.findLongest(this.lessonList); //susirandam igiausio saraso zodzio ilgi
+
         for (let i = 0; i < this.lessonList.length; i++) {
             const lesson = this.lessonList[i];
-            console.log(`${lesson}: ${this.lessonAverageMarkList[i]}`);
+
+            const letterDiff = letterNumber - lesson.length;
+
+            console.log(`${lesson}${space.repeat(letterDiff)}: ${this.lessonAverageMarkList[i]}`);
         }
-        console.log('=====================');
+
+        const equalString = '=';
+        console.log(`${equalString.repeat(letterNumber + 6)}`);
+    }
+    findLongest(array) {
+
+        let ilgiausias = '';
+        for (let i = 0; i < array.length; i++) {
+            const zodis = array[i];
+            if (zodis.length > ilgiausias.length) {
+                ilgiausias = zodis;
+            }
+        }
+
+        return ilgiausias.length
     }
 }
 
