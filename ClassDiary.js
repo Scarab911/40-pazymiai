@@ -12,6 +12,7 @@ class ClassDiary {
         this.lessonAverageMarkList = [];
 
         this.showedInfo = [];
+        this.showedAverages = []
 
     }
     intro() {
@@ -51,16 +52,18 @@ class ClassDiary {
         }
     }
     showStudentsMarks(studentsName, print = true) {
+
+        const jonas = 'Jono pazymai';
+        let pazymiaiLog = '';
+
+        let lygybes = '';
+
         const equalString = '=';
 
         const space = ' '; //SPACE
         const letterNumber = this.findLongest(this.lessonList);
 
-        if (print) {
 
-            console.log(`Jono pazymiai`);
-            console.log(`${equalString.repeat(letterNumber)}`);
-        }
 
         let studentsID = 0;
 
@@ -100,42 +103,49 @@ class ClassDiary {
             this.lessonAverageMarkList = tempStudentsAverageMarkList;
             const letterDiff = letterNumber - lesson.length;
 
-            this.showedInfo.push(`${lesson}${space.repeat(letterDiff)}: ${oneLessonMarks.join(`, `)}`)//sukuriam array is tekstu
-
+            this.showedInfo.push(`${lesson}${space.repeat(letterDiff)}: ${oneLessonMarks.join(`, `)}`)//sukuriam array is tekstu skirta pazymiams
             if (print) {
 
-                console.log(`${lesson}${space.repeat(letterDiff)}: ${oneLessonMarks.join(`, `)}`)
+                this.showedAverages.push(`${lesson}${space.repeat(letterDiff)}: ${average}`);
             }
 
         }
-        //apsiskaiciuojam ilgiausia texta ir pakarotjam duota string tiek kartu
+        //apsiskaiciuojam ilgiausia texta ir pakartojam duota string tiek kartu
         const textLength = this.findLongest(this.showedInfo)
+        lygybes = equalString.repeat(textLength);
 
         if (print) {
-
-            console.log(`${equalString.repeat(textLength)}`);
+            console.log(jonas);
+            console.log(lygybes);
+            console.log(this.showedInfo.join('\n'));
+            console.log(lygybes);
         }
     }
     showStudentsAverageMark(name) {
 
-        console.log('Jono pazymiu vidurkis');
-        console.log('=====================');
+        const jonas = 'Jono pazymiu vidurkis';
+        let lygybes = '';
 
         this.showStudentsMarks(name, false); //pagal iskviesta mokiny perskaiciuoja ir perraso vidurki
 
         const space = ' '; //SPACE
-        const letterNumber = this.findLongest(this.lessonList); //susirandam igiausio saraso zodzio ilgi
+        const letterNumber = this.findLongest(this.showedAverages); //susirandam igiausio saraso zodzio ilgi
 
         for (let i = 0; i < this.lessonList.length; i++) {
             const lesson = this.lessonList[i];
 
             const letterDiff = letterNumber - lesson.length;
 
-            console.log(`${lesson}${space.repeat(letterDiff)}: ${this.lessonAverageMarkList[i]}`);
         }
 
         const equalString = '=';
-        console.log(`${equalString.repeat(letterNumber + 6)}`);
+        lygybes = `${equalString.repeat(letterNumber)}`
+
+        console.log(`${jonas}`);
+        console.log(`${lygybes}`);
+        console.log(this.showedAverages.join('\n'));
+        console.log(`${lygybes}`);
+
     }
     findLongest(array) {
 

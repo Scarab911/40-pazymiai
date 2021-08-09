@@ -25,6 +25,6 @@ dienynas.addMark('Jonas', 'Fizika', 5, '2021-05.08');
 dienynas.showStudentsMarks('Jonas');
 
 dienynas.showStudentsAverageMark('Jonas');
-console.log(dienynas);
+// console.log(dienynas);
 // dienynas.findLongest(dienynas.lessonList);
 // console.log(dienynas.showedInfo);
